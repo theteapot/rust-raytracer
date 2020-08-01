@@ -2,29 +2,29 @@ use std::fmt;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Vec3 {
-    vector: [f64; 3],
+    vector: [f32; 3],
 }
 
 impl Vec3 {
-    pub fn new(e0: f64, e1: f64, e2: f64) -> Vec3 {
+    pub fn new(e0: f32, e1: f32, e2: f32) -> Vec3 {
         Vec3 {
             vector: [e0, e1, e2],
         }
     }
 
-    pub fn dot(&self, v: Vec3) -> f64 {
+    pub fn dot(&self, v: Vec3) -> f32 {
         dot(*self, v)
     }
 
-    fn cross(&self, v: Vec3) -> Vec3 {
+    pub fn cross(&self, v: Vec3) -> Vec3 {
         cross(*self, v)
     }
 
-    fn length(&self) -> f64 {
+    pub fn length(&self) -> f32 {
         length(*self)
     }
 
-    pub fn squared_length(&self) -> f64 {
+    pub fn squared_length(&self) -> f32 {
         squared_length(*self)
     }
 
@@ -32,27 +32,27 @@ impl Vec3 {
         *self = make_unit_vector(*self)
     }
 
-    pub fn x(&self) -> f64 {
+    pub fn x(&self) -> f32 {
         self.vector[0]
     }
-    pub fn y(&self) -> f64 {
+    pub fn y(&self) -> f32 {
         self.vector[1]
     }
-    pub fn z(&self) -> f64 {
+    pub fn z(&self) -> f32 {
         self.vector[2]
     }
-    pub fn r(&self) -> f64 {
+    pub fn r(&self) -> f32 {
         self.vector[0]
     }
-    pub fn g(&self) -> f64 {
+    pub fn g(&self) -> f32 {
         self.vector[1]
     }
-    pub fn b(&self) -> f64 {
+    pub fn b(&self) -> f32 {
         self.vector[2]
     }
 }
 
-pub fn dot(u: Vec3, v: Vec3) -> f64 {
+pub fn dot(u: Vec3, v: Vec3) -> f32 {
     u.vector[0] * v.vector[0] + u.vector[1] * v.vector[1] + u.vector[2] * v.vector[2]
 }
 
@@ -64,11 +64,11 @@ fn cross(u: Vec3, v: Vec3) -> Vec3 {
     )
 }
 
-fn length(v: Vec3) -> f64 {
+fn length(v: Vec3) -> f32 {
     (v.vector[0].powi(2) + v.vector[1].powi(2) + v.vector[2].powi(2)).sqrt()
 }
 
-pub fn squared_length(v: Vec3) -> f64 {
+pub fn squared_length(v: Vec3) -> f32 {
     v.vector[0].powi(2) + v.vector[1].powi(2) + v.vector[2].powi(2)
 }
 
@@ -146,7 +146,7 @@ impl std::ops::Neg for Vec3 {
 }
 
 impl std::ops::Index<usize> for Vec3 {
-    type Output = f64;
+    type Output = f32;
 
     fn index(&self, i: usize) -> &Self::Output {
         &self.vector[i]
@@ -163,8 +163,8 @@ impl std::ops::MulAssign for Vec3 {
     }
 }
 
-impl std::ops::MulAssign<f64> for Vec3 {
-    fn mul_assign(&mut self, rhs: f64) -> () {
+impl std::ops::MulAssign<f32> for Vec3 {
+    fn mul_assign(&mut self, rhs: f32) -> () {
         self.vector = [
             self.vector[0] * rhs,
             self.vector[1] * rhs,
@@ -186,9 +186,9 @@ impl std::ops::Mul for Vec3 {
     }
 }
 
-impl std::ops::Mul<f64> for Vec3 {
+impl std::ops::Mul<f32> for Vec3 {
     type Output = Self;
-    fn mul(self, rhs: f64) -> Self {
+    fn mul(self, rhs: f32) -> Self {
         Vec3 {
             vector: [
                 self.vector[0] * rhs,
@@ -199,7 +199,7 @@ impl std::ops::Mul<f64> for Vec3 {
     }
 }
 
-impl std::ops::Mul<Vec3> for f64 {
+impl std::ops::Mul<Vec3> for f32 {
     type Output = Vec3;
     fn mul(self, rhs: Vec3) -> Vec3 {
         Vec3 {
@@ -220,9 +220,9 @@ impl std::ops::Div for Vec3 {
         }
     }
 }
-impl std::ops::Div<f64> for Vec3 {
+impl std::ops::Div<f32> for Vec3 {
     type Output = Self;
-    fn div(self, rhs: f64) -> Vec3 {
+    fn div(self, rhs: f32) -> Vec3 {
         Vec3 {
             vector: [
                 self.vector[0] / rhs,
@@ -243,8 +243,8 @@ impl std::ops::DivAssign for Vec3 {
     }
 }
 
-impl std::ops::DivAssign<f64> for Vec3 {
-    fn div_assign(&mut self, rhs: f64) -> () {
+impl std::ops::DivAssign<f32> for Vec3 {
+    fn div_assign(&mut self, rhs: f32) -> () {
         self.vector = [
             self.vector[0] / rhs,
             self.vector[1] / rhs,
